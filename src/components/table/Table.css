@@ -1,0 +1,24 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    width: auto;
+    min-width: 96%;
+    margin: 2%;
+}
+.table td, .table th {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+
+.title{
+    color: dodgerblue;
+}
+
+.selected{
+    background-color: #C1F291 !important;
+}

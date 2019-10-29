@@ -18,7 +18,13 @@ class Home extends Component{
         this.handleActionClick = this.handleActionClick.bind(this);
     }
 
-    handleRowClick() { }
+    handleRowClick(index) {
+        this.setState(state => {
+            if(state.selectedRow === index)
+                return { selectedRow: -1};
+            return {selectedRow: index};
+        });
+     }
 
     handleActionClick(action) {
         switch(action){
@@ -33,7 +39,10 @@ class Home extends Component{
         return (
             <div>
                 <ActionButtons onActionClick={this.handleActionClick}/>
-                <Table />
+                <Table 
+                    data={this.props.courses}
+                    onRowSelect={this.handleRowClick}
+                    selectedRow={this.state.selectedRow}/>
             </div>
         )
     }
