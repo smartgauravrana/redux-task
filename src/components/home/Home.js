@@ -29,7 +29,15 @@ class Home extends Component{
     handleActionClick(action) {
         switch(action){
             case 'New': return this.props.history.push('/course');
-            case 'Edit': return this.props.history.push('/new');
+            case 'Edit': 
+                if(this.state.selectedRow < 0)
+                    return;
+                const path = '/course/' + this.state.selectedRow;
+                this.props.history.push({
+                    pathname: path,
+                    state: this.props.courses[this.state.selectedRow]
+                });
+                break;
             case 'Delete': 
                 if(this.state.selectedRow > -1){
                     this.props.deleteCourse(this.state.selectedRow);

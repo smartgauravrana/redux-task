@@ -7,10 +7,10 @@ export const addCourse = course => {
     }
 };
 
-export const updateCourse = course => {
+export const updateCourse = (id,course) => {
     return {
         type: actionTypes.UPDATE_COURSE,
-        payload: course
+        payload: {id, course}
     }
 };
 

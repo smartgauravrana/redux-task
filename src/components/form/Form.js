@@ -6,46 +6,48 @@ import validate from '../../utility/validateRules';
 import './Form.css';
 
 class Form extends Component{
-    initialState = {
-        formIsValid: false,
-        formControls: {
-            title:{
-                value: '',
-                touched: false,
-                valid: false,
-                validationRules: {
-                    isRequired: true
-                }
-            },
-            author: {
-                value: '',
-                touched: false,
-                valid: false,
-                validationRules: {
-                    isRequired: true
-                }
-            },
-            category: {
-                value: '',
-                touched: false,
-                valid: false,
-                validationRules: {
-                    isRequired: true
-                }
-            },
-            length: {
-                value: '',
-                touched: false,
-                valid: false,
-                validationRules: {
-                    isRequired: true
+        constructor(props){
+        super(props);
+        this.isEditPage = this.props.match.params.title ? true: false;
+        this.courseId = this.props.match.params.title;
+        this.initialState = {
+            formIsValid: this.isEditPage ? true: false,
+            formControls: {
+                title:{
+                    value: this.isEditPage ? this.props.courses[this.courseId].title:'',
+                    touched: this.isEditPage ? true: false,
+                    valid: this.isEditPage ? true: false,
+                    validationRules: {
+                        isRequired: true
+                    }
+                },
+                author: {
+                    value:  this.isEditPage ? this.props.courses[this.courseId].author:'',
+                    touched: this.isEditPage ? true: false,
+                    valid: this.isEditPage ? true: false,
+                    validationRules: {
+                        isRequired: true
+                    }
+                },
+                category: {
+                    value:  this.isEditPage ? this.props.courses[this.courseId].category:'',
+                    touched: this.isEditPage ? true: false,
+                    valid: this.isEditPage ? true: false,
+                    validationRules: {
+                        isRequired: true
+                    }
+                },
+                length: {
+                    value:  this.isEditPage ? this.props.courses[this.courseId].length:'',
+                    touched: this.isEditPage ? true: false,
+                    valid: this.isEditPage ? true: false,
+                    validationRules: {
+                        isRequired: true
+                    }
                 }
             }
-        }
-    };
-    constructor(props){
-        super(props);
-
+        };    
+        
         this.state = {...this.initialState};
 
         this.handleChange = this.handleChange.bind(this);
@@ -85,7 +87,6 @@ class Form extends Component{
             const updatedControls = {
                 ...this.state.formControls
             };
-            debugger
             for(let formElement in updatedControls){
                 updatedControls[formElement].touched = true;
                 updatedControls[formElement].valid = updatedControls[formElement].valid || false
@@ -100,7 +101,11 @@ class Form extends Component{
             category: formControls.category.value,
             length: formControls.length.value
         }
-        this.props.addCourse(newCourse);
+        if(this.isEditPage){
+            this.props.updateCourse(this.courseId, newCourse);
+        } else{
+            this.props.addCourse(newCourse);
+        }        
         this.props.history.push('/')
     }
 
@@ -129,7 +134,7 @@ class Form extends Component{
 
         return (
             <div className="form-container">
-                <h1>Add</h1>
+                <h1>{this.props.match.params.title ? 'Edit': 'Add'}</h1>
                 <form >
                     <div className="form-group">
                         <label>Title</label>
@@ -177,10 +182,12 @@ class Form extends Component{
                         className="form-btn submit-btn"
                         onClick={() => this.handleButtonClick('submit')}>
                         <i className="fa fa-paper-plane-o" aria-hidden="true"></i> Submit</button>
-                    <button 
+                    
+                    {!this.isEditPage && (<button 
                         className="form-btn"
                         disabled={!isInputValueExist}
-                        onClick={() => this.handleButtonClick('clear')}>Clear Values</button>
+                        onClick={() => this.handleButtonClick('clear')}>Clear Values</button>)}
+                    
                     <button 
                         className="form-btn" 
                         onClick={() => this.handleButtonClick('cancel')}>Cancel</button>
@@ -190,10 +197,17 @@ class Form extends Component{
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        courses: state.data
+    }
+};
+
 const mapDispatchToProps = dispatch => {
     return {
-        addCourse: course => dispatch(actions.addCourse(course))
+        addCourse: course => dispatch(actions.addCourse(course)),
+        updateCourse: (id, course) => dispatch(actions.updateCourse(id, course))
     }
-}
+};
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

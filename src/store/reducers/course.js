@@ -24,13 +24,18 @@ const initalState = {
 };
 
 const reducer = (state=initalState, {type, payload}) => {
+    const data = [...state.data];
     switch(type){
         case actionTypes.ADD_COURSE: 
-            return {...state, data: [...state.data, payload]}
-        case actionTypes.DELETE_COURSE: 
-            const data = [...state.data];
+            return {...state, data: [...state.data, payload]};
+
+        case actionTypes.DELETE_COURSE:             
             data.splice(payload, 1);
-            return {...state, data: data}
+            return {...state, data: data};
+        
+        case actionTypes.UPDATE_COURSE:
+            data.splice(payload.id, 1, payload.course);
+            return {...state, data: data};
         default: return state;
     }
 };

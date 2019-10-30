@@ -14,8 +14,8 @@ class App extends Component {
         <Header />        
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/course/:title" component={Form} />
           <Route path="/course" component={Form} />
-          <Route path="/edit" component={Form} />
           <Redirect to='/' />
         </Switch>
       </div>
