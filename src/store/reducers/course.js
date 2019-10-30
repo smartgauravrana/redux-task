@@ -1,3 +1,5 @@
+import * as actionTypes from '../actions/actionTypes';
+
 const initalState = {
     data: [
         {
@@ -21,8 +23,14 @@ const initalState = {
     ]
 };
 
-const reducer = (state=initalState, action) => {
-    switch(action.type){
+const reducer = (state=initalState, {type, payload}) => {
+    switch(type){
+        case actionTypes.ADD_COURSE: 
+            return {...state, data: [...state.data, payload]}
+        case actionTypes.DELETE_COURSE: 
+            const data = [...state.data];
+            data.splice(payload, 1);
+            return {...state, data: data}
         default: return state;
     }
 };

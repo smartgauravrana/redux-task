@@ -28,9 +28,14 @@ class Home extends Component{
 
     handleActionClick(action) {
         switch(action){
-            case 'New': return this.props.history.push('/new');
+            case 'New': return this.props.history.push('/course');
             case 'Edit': return this.props.history.push('/new');
-            case 'Delete': return console.log('delete action');
+            case 'Delete': 
+                if(this.state.selectedRow > -1){
+                    this.props.deleteCourse(this.state.selectedRow);
+                    this.setState({ selectedRow : -1})
+                }                    
+                break;
             default: return;
         }
     }
@@ -38,6 +43,7 @@ class Home extends Component{
     render(){
         return (
             <div>
+                <h1>Courses</h1>
                 <ActionButtons onActionClick={this.handleActionClick}/>
                 <Table 
                     data={this.props.courses}
@@ -58,7 +64,7 @@ const mapDispatchToProps = dispatch => {
     return {
         addCourse: () => dispatch(actions.addCourse()),
         updateCourse: () => dispatch(actions.updateCourse()),
-        deleteCourse: () => dispatch(actions.deleteCourse())
+        deleteCourse: id => dispatch(actions.deleteCourse(id))
     }
 }
 

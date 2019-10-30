@@ -19,6 +19,11 @@
     color: dodgerblue;
 }
 
+.title:hover{
+    color: blue;
+    text-decoration: underline;
+}
+
 .selected{
     background-color: #C1F291 !important;
 }

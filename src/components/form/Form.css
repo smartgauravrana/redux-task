@@ -1,0 +1,45 @@
+.form-container{
+    width: 90%;
+    margin: 0 4%
+}
+
+.form-group{
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.form-control{
+    width:100%;
+    display: block;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,.15);
+    border-collapse: collapse;
+}
+
+.form-control-error{
+    border: 1px solid red;
+}
+
+.form-btn-container{
+    text-align: left;
+}
+
+.form-btn{
+    font-size: 16px;
+    margin-right: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.submit-btn{
+    background-color: #0275d8;
+    color: white !important;
+}
+
+label{
+    display: inline-block;
+    margin-bottom: .5rem;
+}
