@@ -70,8 +70,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addCourse: () => dispatch(actions.addCourse()),
-        updateCourse: () => dispatch(actions.updateCourse()),
         deleteCourse: id => dispatch(actions.deleteCourse(id))
     }
 }
